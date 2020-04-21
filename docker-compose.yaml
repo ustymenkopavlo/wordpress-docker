@@ -48,5 +48,33 @@ services:
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
       WORDPRESS_DB_NAME: wordpress
+  test-health:
+    depends_on:
+      - db
+    image: wordpress:latest
+    ports:
+      - "8081:80"
+    restart: always
+    volumes:
+      - ./data/test-health:/var/www/html:rw
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: test-health
+  test-property:
+    depends_on:
+      - db
+    image: wordpress:latest
+    ports:
+      - "8081:80"
+    restart: always
+    volumes:
+      - ./data/test-property:/var/www/html:rw
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: test-property
 volumes:
-    data: {}
+  data: {}
