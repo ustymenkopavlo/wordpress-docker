@@ -34,20 +34,6 @@ services:
       MYSQL_USER: wordpress
       MYSQL_PASSWORD: wordpress
 
-  wordpress:
-    depends_on:
-      - db
-    image: wordpress:latest
-    ports:
-      - "8080:80"
-    restart: always
-    volumes:
-      - ./data/wordpress:/var/www/html:rw
-    environment:
-      WORDPRESS_DB_HOST: db:3306
-      WORDPRESS_DB_USER: wordpress
-      WORDPRESS_DB_PASSWORD: wordpress
-      WORDPRESS_DB_NAME: wordpress
   test-health:
     depends_on:
       - db
@@ -67,7 +53,7 @@ services:
       - db
     image: wordpress:latest
     ports:
-      - "8081:80"
+      - "8082:80"
     restart: always
     volumes:
       - ./data/test-property:/var/www/html:rw
@@ -76,5 +62,19 @@ services:
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
       WORDPRESS_DB_NAME: test-property
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:latest
+    ports:
+      - "8080:80"
+    restart: always
+    volumes:
+      - ./data/wordpress:/var/www/html:rw
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
 volumes:
   data: {}
